@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>newIdea</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    
+
+    <link rel='stylesheet' href='/stylesheets/common.css' />
+    <link rel='stylesheet' href='/stylesheets/newIdea.css' />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    
+
+    <script src="https://kit.fontawesome.com/86dd233b26.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <div class="wrap">
+                <form action="/newIdea/search"  method="get" id="myForm">
+                    <div class="select">
+                        <!-- onchange 事件會在 你選擇的值跟現在的不一樣時觸發 -->
+                        <select onchange="submitForm()" name="selectVal">
+                            <option value=""> 請選擇</option>
+                            <% uniqueContents.forEach(item =>{ %>
+        
+                                <option value="<%= item %>"> <%= item %> </option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="search">
+                        <input type="text" name="search_readingProgress" autocomplete="off">
+                            <button class='glass'>
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                    </div>
+                </form>
+                <button class="addBtn">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+
+        <div class="main">
+            <div class="table_wrap">
+                <table >
+                    <thead>
+                        <tr>
+                            <th class="content">內容</th>
+                            <th class="move">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <% data.forEach(item =>{ %>
+                            
+                            <tr>
+                                
+                                <th> <%= item.content %> </th>
+                                <th class="icom">
+                        
+                                    
+                                        
+                                    <button data-id="<%= item.id %>" class="updataBtn">
+                                        <input type="hidden" name="id" value="<%= item.id %>">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                    
+                                    
+
+                                    <form action="/newIdea/delete" method="get">
+                                        <input type="hidden" name="id" value="<%= item.id %>">
+                                        <button class="del">
+                                                <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+
+                                </th>
+                            </tr>
+                        <% }) %>
+                                                                
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="page">
+            <ul >
+                <li class="disabled"><a href="javascript:void(0)"> 共 <%= page.MaxNum %> 條 </a></li>
+                <li class="disabled"><a href="javascript">  <%= page.pageCount %>頁 </a></li>
+                <li class=""><a href="/main/newIdea?page=1"> 首頁 </a></li>
+
+                <!-- 循環頁碼顯示 -->
+
+                <!-- -1 -2 -3 要往左減幾個 -->
+                <% let preNum = 2 %>
+                <!-- 用for迴圈一次印出X頁 -->
+                <% for(let i = preNum; i > 0; i--){ %>
+     
+                    <% if(page.Current - i > 0 ) { %>
+                    <li ><a href="/main/newIdea?page=<%= page.Current-i %>"> <%= page.Current - i %> </a></li>
+
+                <% }} %>
+                <!-- -------------------------------------------- -->
+
+                <!-- +1 +2 +3 要往右加幾個 -->
+                <% let nextNum = 2 %>
+                <li ><a class="currentPage" href="/main/newIdea?page=<%= page.Current%>"> <%= page.Current %> </a></li>
+                
+                <!-- 用for迴圈一次印出X頁 -->
+                <% for(let i = 1; i <= nextNum; i++){ %>
+
+                    <!-- 我在裡面判斷 最多不能超出我的總頁數  且不可以印page.Current(當前頁數) -->
+                    <% if(page.Current + i <= page.pageCount ) { %>
+                    <li ><a href="/main/newIdea?page=<%= page.Current+i %>"> <%= page.Current + i %> </a></li>
+
+                <% }} %>
+
+
+                
+                <!-- 上一頁判斷 -->
+                <% if(page.Current === 1) { %>
+                    <li class="disabled"><a href="javascript">  上一頁 </a></li>
+                <% } else { %>
+                    <li class=""><a href="/main/newIdea?page=<%= page.Current-1 %>"> 上一頁 </a></li>
+                <% } %>
+
+                <!-- 下一頁判斷 -->
+                <% if(page.Current >= page.pageCount) { %>
+                    <li class="disabled"><a href="javascript">  下一頁 </a></li>
+                <% } else { %>
+                    <li class=""><a href="/main/newIdea?page=<%= page.Current+1 %>"> 下一頁 </a></li>
+                <% } %>
+            </ul>
+        </div>
+
+
+        
+    </div>
+
+    <div class="addBackground displayNone"></div>
+    <!-- add的 -->
+    <div class="add displayNone">
+        
+        
+        <div class="add_outBtn">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+
+        <form action="/newIdea/add" method="post">
+            <div class="add_content">
+                <p>內容</p>
+                <input type="text" name="content">
+            </div>
+            <div class="btn">
+                <button>提交</button>
+            </div>
+            
+        </form>
+    </div>
+
+    <!-- updata的 -->
+    <div class="updata displayNone">
+
+        <div class="updata_out">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+
+        <form action="/newIdea/updata" method="post">
+
+            <input type="hidden" name="id"> 
+
+            <div class="updata_content">
+                <p>內容</p>
+                <input type="text" name="content">
+            </div>
+            
+            <div class="btn">
+                <button>提交</button>
+            </div>
+            
+        </form>
+    </div>
+    
+
+    
+
+
+    <!-- joi 驗證錯誤彈出的訊息 -->
+    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+        <script>
+          Swal.fire({
+            icon: 'error',
+            title: '欄位填寫錯誤',
+            html: `<ul style="text-align:left" class="my-error-list">
+            <%- errors.map(e => '<li>' + e + '</li>').join('') %>
+            </ul>`,
+            confirmButtonText: 'confirm',
+            background: '#FFF2D7'
+          });
+        </script>
+    <% } %>
+      
+      
+      
+    
+    
+    <script>
+        // 查詢選擇表單
+        function submitForm() {
+            const form = document.getElementById('myForm')
+            form.submit()
+        }
+
+        //右上角的新增按鈕
+        const addBtn = document.querySelector('.addBtn')
+
+        // 跳出來的視窗
+        const addbackground = document.querySelector('.addBackground')
+        const add = document.querySelector('.add')
+
+        // 視窗裡面的 X按鈕
+        const add_outBtn = document.querySelector('.add_outBtn')
+
+        // 新增
+        addBtn.addEventListener('click',()=>{
+            addbackground.classList.remove('displayNone')
+            add.classList.remove('displayNone')
+        })
+
+        add_outBtn.addEventListener('click',()=>{
+            addbackground.classList.add('displayNone')
+            add.classList.add('displayNone')
+        })
+
+
+
+        // //updata
+
+        const updataBtn = document.querySelectorAll('.updataBtn')
+
+        const updata = document.querySelector('.updata')
+        const updata_out = document.querySelector('.updata_out')
+       
+
+        
+        updataBtn.forEach((item) => {
+            item.addEventListener('click', () => {
+
+                const id = item.dataset.id;
+                fetch(`http://localhost:3000/newIdea/updataDATA?id=${id}`)
+                    .then((res)=>{
+                        return res.json()
+                    })
+                    .then((data)=>{
+
+                        document.querySelector('.updata input[name="id"]').value = data[0].id
+                    
+                        document.querySelector('.updata input[name="content"]').value = data[0].content
+                        
+
+                        // 顯示表單
+                        addbackground.classList.remove('displayNone')
+                        updata.classList.remove('displayNone')
+                        // 關掉表單
+                        updata_out.addEventListener('click',()=>{
+                            addbackground.classList.add('displayNone')
+                            updata.classList.add('displayNone')
+                        })
+                    })
+                    .catch((err)=>{
+                        console.error(err)
+                        alert(err)
+                    })
+            });
+        });
+
+        
+
+
+    
+
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後台管理系統</title>
+
+    <link rel='stylesheet' href='/stylesheets/common.css' />
+    <link rel='stylesheet' href='/stylesheets/main.css' />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/86dd233b26.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="container">
+        <div class="sidebar">
+
+            <div class="top_text">
+                <a href="/main/lobby" target="myframe">
+                    <i class="fa-solid fa-book"></i>讀書計畫
+                </a>
+            </div>
+
+            <div class="bottom_link">
+                <ul>
+                    <li>
+                        <a href="/main/target" target="myframe">
+                            <i class="fa-solid fa-font-awesome"></i>目標
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/main/reading_progress" target="myframe">
+                            <i class="fa-solid fa-calendar"></i>讀書進度表
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/main/problem" target="myframe">
+                            <i class="fa-solid fa-circle-exclamation"></i>待解決問題
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/main/newIdea" target="myframe">
+                            <i class="fa-solid fa-lightbulb"></i>新的想法
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="out">
+                <a href="/admin" class="logout-btn">登出</a>
+            </div>
+
+        </div>
+
+        <div class="main">
+            <iframe src="/main/lobby" name="myframe"></iframe>
+        </div>
+        
+    </div>
+
+    
+    
+    <script>
+        const links = document.querySelectorAll('.bottom_link a')
+        const home = document.querySelector('.top_text a')
+
+        // 把每一個符合條件的a標籤 都加上addEventListener 來監聽
+        links.forEach(link =>{
+            link.addEventListener('click', function(){
+                //清除每一個 a的active屬性 
+                links.forEach(thisLink =>{thisLink.classList.remove('active')})
+                // 選中被你選的那個a
+                this.classList.add('active')
+            })
+        })
+        
+        home.addEventListener('click', function(){
+            links.forEach(link =>{
+                link.classList.remove('active')
+            })
+        })
+    </script>
+    
+    
+      
+    
+</body>
+</html>

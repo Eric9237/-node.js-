@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
+body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
+/* input{
+  border: 0px;
+  background-color: none;
+  outline: none;
+} */
+
+  

@@ -1,0 +1,92 @@
+
+.container{
+    height: 100vh;
+    display: flex;
+    box-sizing: border-box;
+    font-family: "Noto Sans TC", sans-serif;
+}
+.container .sidebar{
+    background-color: #E7D4B5;
+    width: 15%;
+    padding: 20px 26px;
+    box-sizing: border-box;
+    position: relative;
+    height: 100vh;
+
+    display: flex;              /* 讓 sidebar 像欄位排列 */
+    flex-direction: column;
+}
+.container .sidebar .top_text{
+    margin-bottom: 40px;
+    text-align: center;
+}
+.container .sidebar .top_text a{
+    font-size: 36px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #494949;
+}
+.container .sidebar .top_text a i {
+    margin-right: 20px;
+}
+
+.container .sidebar .bottom_link a{
+    text-decoration: none;
+    color: #494949;
+    font-size: 22px;
+    font-weight: 500;
+    width: 100%;
+    display: block;
+    padding: 10px;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+.container .sidebar .bottom_link a.active {
+    background-color: #c6b08c;
+}
+
+.container .sidebar .bottom_link a i{
+    margin-right: 20px;
+}
+.container .sidebar .bottom_link a:hover{
+    background-color: #c6b08c;
+}
+/* .container .sidebar .bottom_link a:focus{
+    background-color: #bbb69a;
+} */
+.container .sidebar .bottom_link li + li{
+    margin-top: 10px;
+}
+
+.container .main{
+    width: 85%;
+    height: 100vh;
+}
+.container .main iframe{
+    border: none;
+    width: 100%;
+    height: 100%;
+    background-color: #FFF2D7;
+    display: block;
+}
+
+.out{
+    margin-top: auto;           /* 把它推到底 */
+    
+}
+.out a{
+    width: 100%;
+    display: block;
+    text-align: center;
+    background-color: #c6b08c;
+    text-decoration: none;
+    color: #494949;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 4px 0 ;
+}
+.out a:hover{
+    background-color: #c5b396;
+    color: #7c7c7c;
+}

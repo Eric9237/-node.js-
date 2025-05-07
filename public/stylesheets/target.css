@@ -1,0 +1,381 @@
+body{
+    background-color: #FFF2D7;
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+    
+}
+
+.top{
+    width: 100%;
+    padding: 26px 16px 16px;
+}
+.wrap{
+    display: flex;
+    background-color: #c6b08c;
+    justify-content: center;
+    border-radius: 24px;
+    padding: 10px;
+    overflow: hidden;
+    gap: 16px;
+}
+.wrap form{
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+.top .select{
+    height: 40px;
+    width: 350px;
+}
+.top .select select{
+    height: 100%;
+    width: 100%;
+    border: none;
+    background-color: #FFF2D7;
+    border-radius: 12px;
+    font-size: 16px;
+    padding: 0 12px;
+}
+.top .select select option{
+    font-size: 16px;
+    padding: 0 12px;
+}
+.top .search {
+    flex: 1;
+    display: flex;
+    background-color: #FFF2D7;
+    border-radius: 12px;
+
+    height: 40px;
+    overflow: hidden;
+}
+.top .search input{
+    border: none;
+    background-color: #FFF2D7;
+    
+    flex: 1; /* ✅ 撐滿除了 glass 區域以外的空間 */
+    padding: 0 12px;
+    font-size: 20px;
+    
+}
+.top .search input{
+    outline: none;
+}
+
+.top .search .glass{
+    width: 60px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #494949;
+    position: relative;
+}
+.top .search .glass::after{
+    content: "";
+    height: 100%;
+    width: 100%;
+    border-left: 5px solid #c6b08c;
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+}
+.top .search .glass:hover{
+    cursor: pointer;
+}
+.top .search .glass i {
+    font-size: 20px;
+}
+.top button{
+    width: 60px;
+    border: none;
+    background-color:#FFF2D7;
+    border-radius: 12px;
+
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.top button:hover{
+    cursor: pointer;
+}
+.top button i{
+    font-size: 26px;
+    color:#494949;
+}
+
+
+.main{
+    background-color: #E7D4B5;
+    overflow: hidden;
+    border-radius: 24px;
+    margin: 16px;
+    padding: 10px 18px;
+    
+}
+.main table{
+    width: 100%;
+    font-size: 22px;
+    font-weight: 400;
+    table-layout: fixed;
+    
+}
+.main table thead{
+    position: relative;
+    line-height: 60px;
+    /* display: flex;
+    justify-content: space-between; */
+}
+.main table thead::after{
+    content: '';
+    width: 100%;
+    height: 100%;
+    border-bottom: 5px solid #c6b08c;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.main table thead tr th{
+    text-align: center;
+    
+}
+/* th .content{
+    width: 70%;
+    
+}
+th .move{
+    width: 30%;
+} */
+
+th.content {
+    width: 70%; /* 7 份 */
+}
+
+th.move {
+    width: 30%; /* 3 份 */
+}
+
+
+.main table tbody tr{
+    position: relative;
+    line-height: 60px;
+}
+.main table tbody tr + tr{
+    border-top: 5px solid #c6b08c8f;
+}
+.main table tbody tr th{
+    text-align: center;
+} 
+
+.main table tbody .icom {
+    display: flex;
+    font-size: 26px;
+    justify-content: center;
+}
+.main table tbody .icom:hover{
+    cursor: pointer;
+}
+.main table tbody .icom form {
+    margin-left: 28px;
+}
+.main table tbody .icom button{
+    border: none;
+    background-color: transparent;
+}
+
+
+
+.addBackground{
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: .4;
+    
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.add{
+    width: 480px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF2D7;
+    padding: 20px;
+    border-radius: 24px;
+}
+.add .add_outBtn{
+    display: flex;
+    justify-content: end;
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: #F16767;
+}
+.add .add_outBtn:hover{
+    cursor: pointer;
+}
+.add form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.add form p{
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 32px;
+    font-weight: 600;
+    color: #a18f72;
+}
+.add form div {
+    margin-bottom: 20px;
+}
+.add form input{
+    border: none;
+    width: 300px;
+    padding: 14px;
+    border-radius: 24px;
+    background-color: #c6b08c;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    color: #494949;
+}
+.add form input:focus{
+    outline: none;
+}
+input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px #c6b08c inset !important;
+    -webkit-text-fill-color: #000 !important;
+}
+.add form .btn button{
+    border: none;
+    width: 300px;
+    padding: 14px;
+    border-radius: 24px;
+    background-color: #9EC6F3;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    margin-top: 20px;
+    color: #494949;
+}
+
+.updata{
+    width: 480px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF2D7;
+    padding: 20px;
+    border-radius: 24px;
+}
+.updata .updata_out{
+    display: flex;
+    justify-content: end;
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: #F16767;
+}
+.updata .updata_out:hover{
+    cursor: pointer;
+}
+.updata form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.updata form p{
+    text-align: center;
+    margin-bottom: 4px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #a18f72;
+}
+.updata form div {
+    margin-bottom: 20px;
+}
+.updata form input{
+    border: none;
+    width: 300px;
+    padding: 14px;
+    border-radius: 24px;
+    background-color: #c6b08c;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    color: #494949;
+}
+.updata form input:focus{
+    outline: none;
+}
+input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px #c6b08c inset !important;
+    -webkit-text-fill-color: #000 !important;
+}
+.updata form .btn button{
+    border: none;
+    width: 300px;
+    padding: 14px;
+    border-radius: 24px;
+    background-color: #9EC6F3;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    margin-top: 20px;
+    color: #494949;
+}
+
+
+
+
+.displayNone{
+    display: none ;
+}
+
+
+.my-error-list li{
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.page{
+    width: 100%; 
+    padding: 20px 16px; 
+    border-color: 1px solid black;
+}
+.page ul {
+    display: flex;
+    justify-content: end;
+}
+.page ul li{
+    margin-right: 10px;
+}
+.page ul li a{
+    text-decoration: none;
+    color: #000;
+    background-color: #e7d4b5;
+    padding: 5px 10px;         /* 增加內距讓大小一致 */
+    display: inline-block;     /* 讓 a 變成可控制的區塊 */
+    line-height: 1.5;          /* 統一行高 */
+    vertical-align: middle;    /* 垂直置中（雖然inline-block用的不多，但可加） */
+    border-radius: 5px;        /* 美化一下圓角 */
+    font-weight: 500;
+    letter-spacing: 2px; /* ✅ 加這行 */
+}
+.page .disabled{
+    pointer-events: none;  /* 禁用滑鼠點擊 */
+    cursor: not-allowed;       /* 不顯示小手 */
+}
+
+.page .currentPage{
+    background-color: #c6b08c;
+}

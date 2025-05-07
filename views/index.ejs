@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>後台管理系統</title>
+    <link rel='stylesheet' href='/stylesheets/common.css' />
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+
+
+  </head>
+  <body>
+
+    <div class="container">
+      <header>
+        <div class="pic">
+          <img src="/images/catLogo.png" alt="">
+        </div>
+
+        <div class="logo_text">
+          後台管理系統
+        </div>
+      </header>
+
+
+
+    <form action="/admin/main" method="post">
+      <div class="wrap">
+        
+        <div class="login_txt">用戶登入</div>
+
+        <div class="logingroup">
+          <label for="">用戶名</label>
+          <input type="text" name="userName">
+        </div>
+
+        <div class="logingroup">
+          <label for="">密碼</label>
+          <input type="password" name="userPwd">
+        </div>
+
+        <div class="logingroup">
+          <input type="submit" value="Login">
+        </div>
+
+      </div>
+    </form>
+
+    </div>
+  </body>
+</html>

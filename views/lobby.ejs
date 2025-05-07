@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobby</title>
+    <link rel='stylesheet' href='/stylesheets/common.css' />
+    <link rel='stylesheet' href='/stylesheets/lobby.css' />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@latest"></script>
+    <script src="https://kit.fontawesome.com/86dd233b26.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="lineChart">
+                <div class="lineChartBorder">
+                    <canvas id="lineChart" ></canvas>
+                </div>
+            </div>
+            <div class="problem">
+                <div class="problemBorder">
+                    <div class="wrap">
+                        <div class="title">  
+                            <i class="fa-solid fa-circle-question" style="color: #936639;"></i>
+                            
+                            待解決問題
+                        </div>
+                        <div class="problemContent">
+                            <% problemDate.forEach(item =>{ %>
+                                <div class="problemItem"><%= item.content %></div>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="target">
+                <div class="targetBorder">
+                    <div class="wrap">
+                        <div class="title">  
+                            <i class="fa-solid fa-trophy" style="color: #936639;"></i>
+                            目標
+                        </div>
+                        <div class="targetContent">
+                            <% targetDate.forEach(item =>{ %>
+                                <div class="targetItem"><%= item.content %></div>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="doughnut">
+                <div class="doughnutBorder">
+                    <canvas id="pieChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const data = <%- JSON.stringify(data) %>  
+        
+        // 折線圖
+        const labels = data.map(item =>{
+           const part = item.data.split('-')
+           return `${parseInt(part[1])}/${parseInt(part[2])}`
+        }).reverse()
+        
+        const hours = data.map(item =>{ return item.hour }).reverse()
+        
+        const content = data.map(item => item.content).reverse();
+
+    
+        const lineChart = document.querySelector('#lineChart');
+        new Chart(lineChart, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '📖 每日讀書時數',
+                    data: hours,
+                    borderColor: '#D4A373', // 焦糖線
+                    backgroundColor: '#e7d4b589', // 奶茶米底色
+                    fill: true,
+                    borderWidth: 3,
+                    tension: 0.2,
+                    pointBackgroundColor: '#936639',  // 焦糖點
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'nearest',
+                    intersect: false
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '讀書進度圖表',
+                        font: {
+                            size: 30,
+                            family: 'Noto Sans TC'
+                        },
+                        color: '#936639'
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#FFFBEF',
+                        titleColor: '#936639',
+                        bodyColor: '#6C4F3D',
+                        borderColor: '#D4A373',
+                        borderWidth: 1,
+                        titleFont: {
+                            size: 16
+                        },
+                        bodyFont: {
+                            size: 14
+                        },
+                        displayColors: false,
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const index = tooltipItem.dataIndex;
+                                const hour = tooltipItem.raw;
+                                const contentText = content[index];
+                                return [`📚 ${hour} 小時`, `📝 ${contentText}`];
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '小時',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            },
+                            color: '#6C4F3D'
+                        },
+                        ticks: {
+                            font: {
+                                size: 14
+                            },
+                            color: '#6C4F3D'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: '日期',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            },
+                            color: '#6C4F3D'
+                        },
+                        ticks: {
+                            font: {
+                                size: 14
+                            },
+                            color: '#6C4F3D'
+                        }
+                    }
+                }
+            }
+        });
+
+
+
+        // 圓餅圖
+        const pieCount = {}
+        data.forEach(item =>{
+            const content = item.content
+            const hour = parseInt(item.hour)
+
+
+            if(pieCount[content]){
+                pieCount[content] = pieCount[content] + hour
+            }
+            else{
+                pieCount[content] = hour  //若還沒有這個 key，就會自動加進 pieCount 裡
+            }
+            
+        })
+        const pieLabels = Object.keys(pieCount)
+        const pieData = Object.values(pieCount)
+
+        const pieChart = document.querySelector('#pieChart');
+
+        new Chart(pieChart, {
+            type: 'pie',
+            data: {
+                labels: pieLabels,
+                datasets: [{
+                    label: '📚 不同內容的讀書總時數',
+                    data: pieData,
+                    backgroundColor: [
+                        '#FAD6A5', // 奶茶色
+                        '#F6C28B', // 焦糖橘
+                        '#E8B4B8', // 可愛粉
+                        '#B5EAD7', // 清新綠
+                        '#C7CEEA'  // 柔紫色
+                    ],
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '讀書內容的總時數分布',
+                        font: {
+                            size: 30
+                        },
+                        color: '#936639'
+                    },
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+    </script>
+    
+</body>
+</html>
