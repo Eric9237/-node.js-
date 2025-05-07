@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 })
 
 // 首頁
-app.use('/admin', indexRouter);
+app.use('/', indexRouter);
 app.use('/main', sideBar)
 app.use('/reading_progress', reading_progress)
 app.use('/target', target)
