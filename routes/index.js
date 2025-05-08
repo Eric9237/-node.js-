@@ -7,7 +7,7 @@ router.get('/', function (req, res, next) {
   res.render('index');
 });
 
-router.post('/main', function (req, res, next) {
+router.post('/login', function (req, res, next) {
   const sqlStr = 'select * from 01_users where username = ? and password = ?'
 
   db.query(sqlStr, [req.body.userName, req.body.userPwd], (err, results) => {
