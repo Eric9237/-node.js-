@@ -1,6 +1,6 @@
 const mysql = require('mysql2')
 const db = mysql.createConnection({
-    host: 'nodejs.c10yywu4cx2k.ap-northeast-3.rds.amazonaws.com',
+    host: 'my-rds.c10yywu4cx2k.ap-northeast-3.rds.amazonaws.com',
     user: 'admin',
     password: '9237eric',
     database: 'my_db_01'
