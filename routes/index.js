@@ -2,8 +2,12 @@ var express = require('express');
 var router = express.Router();
 const db = require('../sql')
 
-/* GET home page. */
+/* home page. */
 router.get('/', function (req, res, next) {
+  res.render('main');
+});
+/* login page. */
+router.get('/login', function (req, res, next) {
   res.render('index');
 });
 
