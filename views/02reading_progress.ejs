@@ -272,7 +272,7 @@
             item.addEventListener('click', () => {
 
                 const id = item.dataset.id;
-                fetch(`http://localhost:3000/reading_progress/updataDATA?id=${id}`)
+                fetch(`/reading_progress/updataDATA?id=${id}`)
                     .then((res)=>{
                         return res.json()
                     })
